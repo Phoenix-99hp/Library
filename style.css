@@ -1,0 +1,230 @@
+html, body{
+    height: 100%;
+}
+
+input, select {
+    outline: none;
+}
+
+header{
+    padding-top: 42.5px;
+    height: 115px;
+    color: white;
+    background-color: cadetblue
+}
+
+body{
+    margin: 0px;
+}
+
+h1, h2{
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    padding-bottom: 4px;
+    margin-bottom: 0;
+}
+
+h2{
+    padding-top: 4px;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+table{
+    margin-top: 5px;
+    border-collapse: collapse;
+    border-top: none;
+    margin-left: 84px;
+    margin-right: 84px;
+    overflow: wrap;
+    table-layout: fixed;
+}
+
+tr{
+    border-bottom: 2px solid goldenrod;
+}
+
+.lastRow{
+    border-bottom: none;
+    border-top: 2px solid goldenrod;
+}
+
+td{
+    height: 30px;
+    text-align: center;
+}
+
+th{
+    padding: 0px;
+    background-color: cadetblue;
+    color: white;
+    height: 40px;
+}
+
+.column1{
+    width: 640px;
+    max-width: 640px;
+    border-right: 2px solid goldenrod;
+    word-break: break-all;
+}
+
+.column2{
+    width: 432px;
+    max-width: 432px;
+    border-right: 2px solid goldenrod;
+    word-break: break-all;
+
+}
+
+.column3{
+    width: 220px;
+    max-width: 220px;
+    border-right: 2px solid goldenrod;
+    word-break: break-all;
+}
+
+.column4{
+    width: 220px;
+    max-width: 220px;
+    border-right: none;
+    word-break: break-all;
+}
+
+#makeEntry{
+    margin-left: 84px;
+    height: 40px;
+}
+
+.inactive{
+    display: none;
+}
+
+.blur{
+    -webkit-filter: blur(6px); 
+    filter: blur(6px); 
+}
+
+#formContainer{
+    background-color: whitesmoke;
+    position: fixed;
+    width: 500px;
+    top: 35%;
+    left: 50%;
+    justify-content: left;
+    z-index: 2;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+#editContainer{
+    background-color: whitesmoke;
+    position: fixed;
+    width: 500px;
+    top: 35%;
+    left: 50%;
+    justify-content: left;
+    z-index: 2;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+label {
+    font-size: 18px;
+    margin-left: 15px;
+}
+
+#formHeader, #editHeader{
+    background-color: cadetblue;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    color: white;
+}
+
+#title, #titleEdit {
+    width: 421.13px;
+    height: 22px;
+    margin-right: 15px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#author, #authorEdit {
+    width: 403.5px;
+    height: 22px;
+    margin-right: 15px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#pageCount, #pageCountEdit {
+    width: 329.52px;
+    height: 22px;
+    margin-right: 15px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#select, #editSelect, #editSelectRead{
+    margin-right: 0;
+    height: 22px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#editSelect{
+    width: 367.5px;
+    max-width: 367.5px;
+}
+
+#submit, #editSubmit {
+    margin-left: 15px;
+}
+
+.valid {
+    border: 2px solid rgb(36, 192, 36);
+    box-shadow: rgb(36, 192, 36);
+}
+
+.valid:focus{
+    box-shadow: 0 0 9px rgb(36, 192, 36);
+}
+
+.invalid{
+    border: 2px solid rgb(238, 21, 21);
+    box-shadow: rgb(238, 21, 21);
+}
+
+.invalid:focus{
+    box-shadow: 0 0 9px rgb(238, 21, 21);
+}
+
+#initialContainer{
+    top: 10px;
+}
+
+.yes {
+     background:linear-gradient(to right,  rgb(36, 192, 36) 60%, whitesmoke); color: white;
+}
+.no {
+    background:linear-gradient(to right,  rgb(238, 21, 21) 60%, whitesmoke); color: white;
+}
+.partial{
+    background:linear-gradient(to right, orange 60%, whitesmoke); color: white;
+}
+
+#editDelete{
+    margin-left: 159.77px;
+    background-color: rgb(192, 8, 8);
+    color: white;
+}
+
+/*
+ width: 520px;
+    margin-left: 168px;
+    margin-right: 168px;
+    */

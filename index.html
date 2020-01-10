@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<title>My Library</title>
+
+<body>
+    <div id="initialContainer">
+        <header>
+            <h1>My Library</h1>
+            <h2>An Odin Project ... Project</h2>
+        </header>
+        <div id="tableContainer">
+            <table id="table">
+                <th class="column1">Title</th>
+                <th class="column2">Author</th>
+                <th class="column3">Page Count</th>
+                <th class="column4">Read Status</th>
+                <tr>
+                    <td class="column1">Eragon</td>
+                    <td class="column2">Christopher Paolini</td>
+                    <td class="column3">509</td>
+                    <td class="column4"
+                        style="background: linear-gradient(to right, rgb(36, 192, 36) 70%, whitesmoke); color: white;">
+                        Yes</td>
+                </tr>
+                <tr id="Potter" class="lastRow">
+                    <td class="column1">Harry Potter and the Sorcerer's Stone</td>
+                    <td class="column2">J.K. Rowling</td>
+                    <td class="column3">309</td>
+                    <td class="column4"
+                        style="background:linear-gradient(to right, orange 70%, whitesmoke); color: white;">Partially
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <input type="button" id="makeEntry" value="Make A New Book Entry">
+            <input type="button" id="editEntry" value="Edit An Existing Book Entry">
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="formContainer" class="inactive">
+        <h1 id="formHeader">New Book Information</h1>
+        <br>
+        <label id="titleLabel">Title: </label><input type="text" id="title">
+        <br>
+        <br>
+        <br>
+        <label id="authorLabel">Author: </label><input type="text" id="author">
+        <br>
+        <br>
+        <br>
+        <label id="pagesLabel">Number of Pages: </label><input type="text" id="pageCount">
+        <br>
+        <br>
+        <br>
+        <label id="readLabel">Read Status: </label><select id="select" style="height:30px;">
+            <option value="" selected disabled>Please select an option...</option>
+            <option value="Yes" id="option1">Yes - I have read this book.</option>
+            <option value="No" id="option2">No - I have not read this book.</option>
+            <option value="Partially" id="option3">Partially read</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <input type="button" id="submit" value="Enter Book Into Library">
+        <input type="button" id="cancel" value="Cancel">
+        <br>
+        <br>
+    </div>
+    <div id="editContainer" class="inactive">
+        <h1 id="editHeader">Edit</h1>
+        <br>
+        <label id="editLabel">Entry to Edit: </label><select id="editSelect" style="height:30px;">
+            <option value="" class="edit" selected disabled>Please select an option...</option>
+            <option class="edit">Eragon</option>
+            <option class="edit">Harry Potter and the Sorcerer's Stone</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <label id="titleLabelEdit">Title: </label><input type="text" id="titleEdit">
+        <br>
+        <br>
+        <br>
+        <label id="authorLabelEdit">Author: </label><input type="text" id="authorEdit">
+        <br>
+        <br>
+        <br>
+        <label id="pagesLabelEdit">Number of Pages: </label><input type="text" id="pageCountEdit">
+        <br>
+        <br>
+        <br>
+        <label id="readLabelEdit">Read Status: </label><select id="editSelectRead" style="height:30px;">
+            <option value="" selected disabled>Please select an option...</option>
+            <option value="Yes" id="option1">Yes - I have read this book.</option>
+            <option value="No" id="option2">No - I have not read this book.</option>
+            <option value="Partially" id="option3">Partially read</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <input type="button" id="editSubmit" value="Update Selected Entry">
+        <input type="button" id="editCancel" value="Cancel">
+        <input type="button" id="editDelete" value="Delete Selected Entry">
+        <br>
+        <br>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
