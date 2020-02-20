@@ -1,11 +1,11 @@
-let myLibrary = []
+let myLibrary = [];
 
-function Book(title, author, pages, read){
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function(){
+  this.info = function () {
     return (title + ", " + author + ", " + pages + ", " + read + ".");
   }
 }
@@ -16,10 +16,15 @@ let hPotter = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 
 myLibrary.push(Eragon, hPotter);
 
 // A way to add new entries to the myLibrary array.
-function addToLibrary(){
+function addToLibrary() {
   let newEntry = new Book(title.value, author.value, pageCount.value, select.value);
   myLibrary.push(newEntry);
 }
+
+// function addToLibraryEdit() {
+//   let newEntry = new Book(titleEdit.value, authorEdit.value, pageCountEdit.value, editSelectRead.value);
+//   myLibrary.push(newEntry);
+// }
 
 // Credit to Olayinka Omole for the compare function code https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
 // Used in this project to sort all entries in the myLibrary array by title. 
@@ -73,16 +78,16 @@ function sortTable() {
       y = table.rows[i + 1].getElementsByTagName("TD")[0];
       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
         shouldSwitch = true;
-// End of verbatim w3 schools code
+        // End of verbatim w3 schools code
         if (shouldSwitch) {
           table.rows[i].parentNode.insertBefore(table.rows[i + 1], table.rows[i]);
           switching = true;
-        } 
-// End of modified w3 schools code
-        if (table.rows[i] == table.rows.length-1){
+        }
+        // End of modified w3 schools code
+        if (table.rows[i] == table.rows.length - 1) {
           table.rows[i].classList.add("lastRow");
         }
-        else if (table.rows[i] !== table.rows.length-1){
+        else if (table.rows[i] !== table.rows.length - 1) {
           table.rows[i].classList.remove("lastRow")
         }
       }
@@ -91,15 +96,15 @@ function sortTable() {
 }
 
 // Used for sorting the select menu options. Based on the w3 schools above. 
-function sortSelectMenu(){
+function sortSelectMenu() {
   let switching, i, x, y, shouldSwitch;
   switching = true;
   while (switching) {
     switching = false;
-    for (i = 1; i < (editSelect.children.length-1); i++) {
+    for (i = 1; i < (editSelect.children.length - 1); i++) {
       shouldSwitch = false;
       x = editSelect.children[i];
-      y = editSelect.children[i+1];
+      y = editSelect.children[i + 1];
       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
         shouldSwitch = true;
         if (shouldSwitch) {
@@ -112,19 +117,14 @@ function sortSelectMenu(){
 }
 
 // The workhorse...inserts a new row with cells for every new book entry and adds a new, corresponding, select menu option. Also sorts the myLibrary array. 
-function render(){
-  let newOption = document.createElement("option")
+function render() {
+  let newOption = document.createElement("option");
   let rowCount = table.rows.length;
   let row = table.insertRow(rowCount);
   let cell1 = row.insertCell(0);
   let cell2 = row.insertCell(1);
   let cell3 = row.insertCell(2);
   let cell4 = row.insertCell(3);
-  row;
-  cell1;
-  cell2;
-  cell3;
-  cell4;
   row.classList.add("lastRow");
   cell1.classList.add("column1");
   cell2.classList.add("column2");
@@ -134,10 +134,50 @@ function render(){
   cell2.innerHTML = author.value;
   cell3.innerHTML = pageCount.value;
   cell4.innerHTML = select.value;
-  if (cell4.innerHTML === "Yes"){
+  if (cell4.innerHTML === "Yes") {
     cell4.classList.add("yes");
   }
-  else if (cell4.innerHTML === "No"){
+  else if (cell4.innerHTML === "No") {
+    cell4.classList.add("no");
+  }
+  else {
+    cell4.classList.add("partial");
+  }
+  sortTable();
+  editSelect.add(newOption);
+  newOption.innerHTML = cell1.innerHTML;
+  myLibrary.sort(compare);
+  sortSelectMenu();
+}
+
+function renderEdit() {
+  for (i = 1; i < table.rows.length; i++) {
+    if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text) {
+      table.deleteRow(i);
+      editSelect.children[i].remove();
+    }
+  };
+  // checkForLastRow();
+  let newOption = document.createElement("option");
+  let rowCount = table.rows.length;
+  let row = table.insertRow(rowCount);
+  let cell1 = row.insertCell(0);
+  let cell2 = row.insertCell(1);
+  let cell3 = row.insertCell(2);
+  let cell4 = row.insertCell(3);
+  row.classList.add("lastRow");
+  cell1.classList.add("column1");
+  cell2.classList.add("column2");
+  cell3.classList.add("column3");
+  cell4.classList.add("column4");
+  cell1.innerHTML = titleEdit.value;
+  cell2.innerHTML = authorEdit.value;
+  cell3.innerHTML = pageCountEdit.value;
+  cell4.innerHTML = editSelectRead.value;
+  if (cell4.innerHTML === "Yes") {
+    cell4.classList.add("yes");
+  }
+  else if (cell4.innerHTML === "No") {
     cell4.classList.add("no");
   }
   else {
@@ -151,7 +191,7 @@ function render(){
 }
 
 // Removes previous text from form fields.
-function resetFormFields(){
+function resetFormFields() {
   select.selectedIndex = 0;
   title.value = "";
   author.value = "";
@@ -163,7 +203,7 @@ function resetFormFields(){
 }
 
 // Same as above but for the edit form. 
-function resetFormFieldsEdit(){
+function resetFormFieldsEdit() {
   editSelect.selectedIndex = 0;
   titleEdit.value = "";
   authorEdit.value = "";
@@ -177,44 +217,45 @@ function resetFormFieldsEdit(){
 }
 
 // Removes the bottom border from the last entry in the table for cosmetic appeal.  
-function checkForLastRow(){
-  if (table.rows[1] == table.rows[table.rows.length-1]){
+function checkForLastRow() {
+  if (table.rows[1] == table.rows[table.rows.length - 1]) {
     table.rows[1].classList.add("lastRow");
-  }}
+  }
+}
 
-makeEntry.addEventListener("click", function(e){
-    form.classList.toggle("inactive");
-    initialContainer.classList.toggle("blur");
-    makeEntry.disabled = true;
-    editEntry.disabled = true;
+makeEntry.addEventListener("click", function (e) {
+  form.classList.toggle("inactive");
+  initialContainer.classList.toggle("blur");
+  makeEntry.disabled = true;
+  editEntry.disabled = true;
 })
 
-cancel.addEventListener("click", function(e){
+cancel.addEventListener("click", function (e) {
   form.classList.toggle("inactive");
   initialContainer.classList.toggle("blur");
   editEntry.disabled = false;
   makeEntry.disabled = false;
   resetFormFields();
 })
-  
-editEntry.addEventListener("click", function(e){
-    editContainer.classList.toggle("inactive")
-    initialContainer.classList.toggle("blur");
-    makeEntry.disabled = true;
-    editEntry.disabled = true;
+
+editEntry.addEventListener("click", function (e) {
+  editContainer.classList.toggle("inactive")
+  initialContainer.classList.toggle("blur");
+  makeEntry.disabled = true;
+  editEntry.disabled = true;
 });
-  
-editCancel.addEventListener("click", function(e){
-    editContainer.classList.toggle("inactive");
-    initialContainer.classList.toggle("blur");
-    editEntry.disabled = false;
-    makeEntry.disabled = false;
-    resetFormFieldsEdit();
+
+editCancel.addEventListener("click", function (e) {
+  editContainer.classList.toggle("inactive");
+  initialContainer.classList.toggle("blur");
+  editEntry.disabled = false;
+  makeEntry.disabled = false;
+  resetFormFieldsEdit();
 })
 
-editDelete.addEventListener("click", function(e){
-  for (i=1; i<table.rows.length; i++){
-    if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text){
+editDelete.addEventListener("click", function (e) {
+  for (i = 1; i < table.rows.length; i++) {
+    if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text) {
       table.deleteRow(i);
       editSelect.children[i].remove();
       checkForLastRow();
@@ -225,13 +266,14 @@ editDelete.addEventListener("click", function(e){
       resetFormFieldsEdit();
       break;
     }
-}})
+  }
+})
 
 // Regular expressions used to monitor whether an input field is valid. 
 // Inspired by the Net Ninja's Regular Expressions series on YouTube https://www.youtube.com/watch?v=r6I-Ahc0HB4
-submit.addEventListener("click", function(e){
+submit.addEventListener("click", function (e) {
   if ((/^.+$/gi.test(title.value) == true) && (/^[a-z\.-\s]+$/gi.test(author.value) == true) &&
-    (/^\d+$/gi.test(pageCount.value) == true) && (/^[a-z]+$/gi.test(select.value) == true)){
+    (/^\d+$/gi.test(pageCount.value) == true) && (/^[a-z]+$/gi.test(select.value) == true)) {
     addToLibrary();
     render();
     form.classList.toggle("inactive");
@@ -245,11 +287,11 @@ submit.addEventListener("click", function(e){
   }
 })
 
-editSubmit.addEventListener("click", function(e){
+editSubmit.addEventListener("click", function (e) {
   if ((/^.+$/gi.test(editSelect.value) == true) && (/^.+$/gi.test(titleEdit.value) == true) && (/^[a-z\.-\s]+$/gi.test(authorEdit.value) == true) &&
-    (/^\d+$/gi.test(pageCountEdit.value) == true) && (/^[a-z]+$/gi.test(editSelectRead.value) == true)){
-    addToLibrary();
-    render();
+    (/^\d+$/gi.test(pageCountEdit.value) == true) && (/^[a-z]+$/gi.test(editSelectRead.value) == true)) {
+    // addToLibraryEdit();
+    renderEdit();
     editContainer.classList.toggle("inactive");
     initialContainer.classList.toggle("blur");
     editEntry.disabled = false;
@@ -261,113 +303,132 @@ editSubmit.addEventListener("click", function(e){
   }
 })
 
-title.addEventListener("keyup", function(e){
+title.addEventListener("keyup", function (e) {
   let x = title.value;
-  if (/^.+$/gi.test(x) == true){
+  if (/^.+$/gi.test(x) == true) {
     title.classList.remove("invalid");
     title.classList.add("valid");
   }
-  else if (/^.+$/gi.test(x) == false){
+  else if (/^.+$/gi.test(x) == false) {
     title.classList.remove("valid");
     title.classList.add("invalid");
-}})
+  }
+})
 
-titleEdit.addEventListener("keyup", function(e){
+titleEdit.addEventListener("keyup", function (e) {
   let x = titleEdit.value;
-  if (/^.+$/gi.test(x) == true){
+  if (/^.+$/gi.test(x) == true) {
     titleEdit.classList.remove("invalid");
     titleEdit.classList.add("valid");
   }
-  else if (/^.+$/gi.test(x) == false){
+  else if (/^.+$/gi.test(x) == false) {
     titleEdit.classList.remove("valid");
     titleEdit.classList.add("invalid");
-}})
+  }
+})
 
-author.addEventListener("keyup", function(e){
+author.addEventListener("keyup", function (e) {
   let x = author.value;
-  if (/^[a-z\.-\s]+$/gi.test(x) == true){
+  if (/^[a-z\.-\s]+$/gi.test(x) == true) {
     author.classList.remove("invalid");
     author.classList.add("valid");
   }
-  else if (/^[a-z\.-\s]+$/gi.test(x) == false){
+  else if (/^[a-z\.-\s]+$/gi.test(x) == false) {
     author.classList.remove("valid");
     author.classList.add("invalid");
-}})
+  }
+})
 
-authorEdit.addEventListener("keyup", function(e){
+authorEdit.addEventListener("keyup", function (e) {
   let x = authorEdit.value;
-  if (/^[a-z\.-\s]+$/gi.test(x) == true){
+  if (/^[a-z\.-\s]+$/gi.test(x) == true) {
     authorEdit.classList.remove("invalid");
     authorEdit.classList.add("valid");
   }
-  else if (/^[a-z\.-\s]+$/gi.test(x) == false){
+  else if (/^[a-z\.-\s]+$/gi.test(x) == false) {
     authorEdit.classList.remove("valid");
     authorEdit.classList.add("invalid");
-}})
+  }
+})
 
-pageCount.addEventListener("keyup", function(e){
+pageCount.addEventListener("keyup", function (e) {
   let x = pageCount.value;
-  if (/^\d+$/gi.test(x) == true){
+  if (/^\d+$/gi.test(x) == true) {
     pageCount.classList.remove("invalid");
     pageCount.classList.add("valid");
   }
-  else if (/^\d+$/gi.test(x) == false){
+  else if (/^\d+$/gi.test(x) == false) {
     pageCount.classList.remove("valid");
     pageCount.classList.add("invalid");
-}})
+  }
+})
 
-pageCountEdit.addEventListener("keyup", function(e){
+pageCountEdit.addEventListener("keyup", function (e) {
   let x = pageCountEdit.value;
-  if (/^\d+$/gi.test(x) == true){
+  if (/^\d+$/gi.test(x) == true) {
     pageCountEdit.classList.remove("invalid");
     pageCountEdit.classList.add("valid");
   }
-  else if (/^\d+$/gi.test(x) == false){
+  else if (/^\d+$/gi.test(x) == false) {
     pageCountEdit.classList.remove("valid");
     pageCountEdit.classList.add("invalid");
-}})
+  }
+})
 
-select.addEventListener("change", function(e){
+select.addEventListener("change", function (e) {
   let x = select.value;
-  if (/^[a-z]+$/gi.test(x) == true){
+  if (/^[a-z]+$/gi.test(x) == true) {
     select.classList.remove("invalid");
     select.classList.add("valid");
   }
-  else if (/^[a-z]+$/gi.test(x) == false){
+  else if (/^[a-z]+$/gi.test(x) == false) {
     select.classList.remove("valid");
     select.classList.add("invalid");
-}})
+  }
+})
 
-editSelect.addEventListener("change", function(e){
+editSelect.addEventListener("change", function (e) {
   let x = editSelect.value;
-  if (/^.+$/gi.test(x) == true){
+  if (/^.+$/gi.test(x) == true) {
     editSelect.classList.remove("invalid");
     editSelect.classList.add("valid");
   }
-  else if (/^.+$/gi.test(x) == false){
+  else if (/^.+$/gi.test(x) == false) {
     editSelect.classList.remove("valid");
     editSelect.classList.add("invalid");
-}})
+  }
+})
 
-editSelectRead.addEventListener("change", function(e){
+editSelectRead.addEventListener("change", function (e) {
   let x = editSelectRead.value;
-  if (/^[a-z]+$/gi.test(x) == true){
+  if (/^[a-z]+$/gi.test(x) == true) {
     editSelectRead.classList.remove("invalid");
     editSelectRead.classList.add("valid");
   }
-  else if (/^[a-z]+$/gi.test(x) == false){
+  else if (/^[a-z]+$/gi.test(x) == false) {
     editSelectRead.classList.remove("valid");
     editSelectRead.classList.add("invalid");
-}})
+  }
+})
 
 // Used to automatically fill out the remaining form fields when an entered title is selected from the select menu. 
-editSelect.addEventListener("change", function(e){
-  for (i = 1; i < (editSelect.children.length); i++){
-    if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text){
+editSelect.addEventListener("change", function (e) {
+  for (i = 1; i < (editSelect.children.length); i++) {
+    if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text) {
       titleEdit.value = table.rows[i].getElementsByTagName("TD")[0].innerHTML;
       authorEdit.value = table.rows[i].getElementsByTagName("TD")[1].innerHTML;
       pageCountEdit.value = table.rows[i].getElementsByTagName("TD")[2].innerHTML;
-      editSelectRead.value = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
+      // editSelectRead.value = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
+      var val = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
+      var options = editSelectRead.options;
+      // editSelectRead.selectedIndex = i;
+      for (var opt, j = 0; opt = options[j]; j++) {
+        if (opt.value == val) {
+          editSelectRead.selectedIndex = j;
+          break;
+        }
+      }
+
       titleEdit.classList.add("valid");
       authorEdit.classList.add("valid");
       pageCountEdit.classList.add("valid");
