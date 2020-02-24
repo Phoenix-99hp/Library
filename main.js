@@ -12,13 +12,26 @@ function Book(title, author, pages, read) {
 
 // Sample book entries to appear in initial display.
 let Eragon = new Book("Eragon", "Christopher Paolini", "509", "Yes")
-let hPotter = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "309", "Yes")
+let hPotter = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "309", "Partially")
 myLibrary.push(Eragon, hPotter);
 
 // A way to add new entries to the myLibrary array.
 function addToLibrary() {
   let newEntry = new Book(title.value, author.value, pageCount.value, select.value);
   myLibrary.push(newEntry);
+}
+
+function addToLibraryEdit() {
+  let newEntry = new Book(titleEdit.value, authorEdit.value, pageCountEdit.value, editSelectRead.value);
+  myLibrary.push(newEntry);
+}
+
+function deleteFromLibrary(bookTitle) {
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].title == bookTitle) {
+      myLibrary.splice(i, 1);
+    }
+  }
 }
 
 // function addToLibraryEdit() {
@@ -140,7 +153,7 @@ function render() {
   else if (cell4.innerHTML === "No") {
     cell4.classList.add("no");
   }
-  else {
+  else if (cell4.innerHTML === "Partially") {
     cell4.classList.add("partial");
   }
   sortTable();
@@ -180,7 +193,7 @@ function renderEdit() {
   else if (cell4.innerHTML === "No") {
     cell4.classList.add("no");
   }
-  else {
+  else if (cell4.innerHTML === "Partially") {
     cell4.classList.add("partial");
   }
   sortTable();
@@ -218,8 +231,11 @@ function resetFormFieldsEdit() {
 
 // Removes the bottom border from the last entry in the table for cosmetic appeal.  
 function checkForLastRow() {
-  if (table.rows[1] == table.rows[table.rows.length - 1]) {
-    table.rows[1].classList.add("lastRow");
+  for (let i = 0; i < table.rows.length; i++) {
+    if (table.rows[i] == table.rows[table.rows.length - 1]) {
+      table.rows[i].classList.add("lastRow");
+      break;
+    }
   }
 }
 
@@ -256,6 +272,7 @@ editCancel.addEventListener("click", function (e) {
 editDelete.addEventListener("click", function (e) {
   for (i = 1; i < table.rows.length; i++) {
     if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text) {
+      deleteFromLibrary(titleEdit.value);
       table.deleteRow(i);
       editSelect.children[i].remove();
       checkForLastRow();
@@ -264,6 +281,7 @@ editDelete.addEventListener("click", function (e) {
       editEntry.disabled = false;
       makeEntry.disabled = false;
       resetFormFieldsEdit();
+      console.log(myLibrary);
       break;
     }
   }
@@ -281,6 +299,7 @@ submit.addEventListener("click", function (e) {
     editEntry.disabled = false;
     makeEntry.disabled = false;
     resetFormFields();
+    console.log(myLibrary);
   }
   else {
     alert("One or more field entries is not valid.");
@@ -290,13 +309,15 @@ submit.addEventListener("click", function (e) {
 editSubmit.addEventListener("click", function (e) {
   if ((/^.+$/gi.test(editSelect.value) == true) && (/^.+$/gi.test(titleEdit.value) == true) && (/^[a-z\.-\s]+$/gi.test(authorEdit.value) == true) &&
     (/^\d+$/gi.test(pageCountEdit.value) == true) && (/^[a-z]+$/gi.test(editSelectRead.value) == true)) {
-    // addToLibraryEdit();
+    deleteFromLibrary(titleEdit.value);
+    addToLibraryEdit();
     renderEdit();
     editContainer.classList.toggle("inactive");
     initialContainer.classList.toggle("blur");
     editEntry.disabled = false;
     makeEntry.disabled = false;
     resetFormFieldsEdit();
+    console.log(myLibrary);
   }
   else {
     alert("One or more field entries is not valid.");
@@ -413,27 +434,24 @@ editSelectRead.addEventListener("change", function (e) {
 
 // Used to automatically fill out the remaining form fields when an entered title is selected from the select menu. 
 editSelect.addEventListener("change", function (e) {
+  let val;
+  const options = editSelectRead.children;
   for (i = 1; i < (editSelect.children.length); i++) {
     if (table.rows[i].getElementsByTagName("TD")[0].innerHTML == editSelect.options[editSelect.selectedIndex].text) {
       titleEdit.value = table.rows[i].getElementsByTagName("TD")[0].innerHTML;
       authorEdit.value = table.rows[i].getElementsByTagName("TD")[1].innerHTML;
       pageCountEdit.value = table.rows[i].getElementsByTagName("TD")[2].innerHTML;
-      // editSelectRead.value = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
-      var val = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
-      var options = editSelectRead.options;
-      // editSelectRead.selectedIndex = i;
-      for (var opt, j = 0; opt = options[j]; j++) {
-        if (opt.value == val) {
-          editSelectRead.selectedIndex = j;
-          break;
-        }
-      }
-
-      titleEdit.classList.add("valid");
-      authorEdit.classList.add("valid");
-      pageCountEdit.classList.add("valid");
-      editSelectRead.classList.add("valid");
-      break;
+      val = table.rows[i].getElementsByTagName("TD")[3].innerHTML;
     }
   }
+  for (let j = 1; j < options.length; j++) {
+    if (options[j].value.trim() == val.trim()) {
+      editSelectRead.selectedIndex = j;
+      break;
+    }
+  };
+  titleEdit.classList.add("valid");
+  authorEdit.classList.add("valid");
+  pageCountEdit.classList.add("valid");
+  editSelectRead.classList.add("valid");
 })

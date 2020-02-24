@@ -109,20 +109,9 @@ th{
     filter: blur(6px); 
 }
 
-#formContainer{
+#editContainer, #formContainer{
     background-color: whitesmoke;
-    position: fixed;
-    width: 500px;
-    top: 35%;
-    left: 50%;
-    justify-content: left;
-    z-index: 2;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-}
-
-#editContainer{
-    background-color: whitesmoke;
+    border-radius: 10px;
     position: fixed;
     width: 500px;
     top: 35%;
